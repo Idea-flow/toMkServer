@@ -1,0 +1,18 @@
+server:
+  port: 9998
+
+spring:
+  profiles:
+    active: h2
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: true
+    encoding: UTF-8
+
+
+## markdown存储位置配置区:
+markdown:
+  #  filePath: ./mds/
+  filePath: /Users/wangpenglong/dockerMounts/tomarkdown/mds
