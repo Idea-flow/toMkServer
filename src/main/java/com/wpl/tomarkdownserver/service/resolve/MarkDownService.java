@@ -7,6 +7,7 @@ import com.wpl.tomarkdownserver.config.ThreadPoolConfig;
 import com.wpl.tomarkdownserver.entity.MarkDown;
 import com.wpl.tomarkdownserver.entity.PIC;
 import com.wpl.tomarkdownserver.mapper.PicMapper;
+import com.wpl.tomarkdownserver.model.WebSiteContent;
 import com.wpl.tomarkdownserver.service.common.HandleService;
 import com.wpl.tomarkdownserver.utils.ImageUtil;
 import com.wpl.tomarkdownserver.utils.MarkDownUtil;
@@ -35,7 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class MarkDownService implements HandleService {
 
     @Override
-    public String getBlogContent(MarkDown markDown) {
+    public WebSiteContent getBlogContent(MarkDown markDown) {
 
         // 1. 获取 Document
         Document document = getDocument(markDown.getBlogUrl());
@@ -48,8 +49,7 @@ public abstract class MarkDownService implements HandleService {
 
         // 转换为 markdown
         Remark remark = new Remark();
-
-        return remark.convert(htmlContent);
+        return new WebSiteContent(markDown.getBlogTitle(),remark.convert(htmlContent));
     }
 
 

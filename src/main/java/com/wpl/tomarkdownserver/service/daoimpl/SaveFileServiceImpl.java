@@ -6,12 +6,15 @@ import com.wpl.tomarkdownserver.entity.MarkDown;
 import com.wpl.tomarkdownserver.entity.SETTING;
 import com.wpl.tomarkdownserver.mapper.MdMapper;
 import com.wpl.tomarkdownserver.mapper.SettingMapper;
+import com.wpl.tomarkdownserver.model.WebSiteContent;
 import com.wpl.tomarkdownserver.service.SaveFileService;
 import com.wpl.tomarkdownserver.utils.MarkDownUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,7 +36,7 @@ public class SaveFileServiceImpl implements SaveFileService {
     @Resource
     private SettingMapper settingMapper;
     @Override
-    public String saveToFile(String result, String id, MarkDown markDownm) throws IOException {
+    public String saveToFile(WebSiteContent webSiteContent, String id, MarkDown markDownm) throws IOException {
 
         SETTING mdSavePath = settingMapper.findByName("MD_Save_Path");
         System.out.println(mdSavePath);
@@ -48,25 +51,25 @@ public class SaveFileServiceImpl implements SaveFileService {
             mdFile.createNewFile();
         }
         FileOutputStream outputStream = new FileOutputStream(mdFile);
-        outputStream.write(result.getBytes());
+        outputStream.write(webSiteContent.getContent().getBytes());
         outputStream.close();
 
         String savepath = mdSavePath.getConfigValue() + "/" + filename;
 
-        saveToDatabase(result, id, savepath,markDownm);
+        saveToDatabase(webSiteContent, id, savepath,markDownm);
         return "MD文件保存到:"+savepath;
     }
 
     @Override
-    public void saveToDatabase(String result,String id,String savePath,MarkDown markdown) throws IOException {
-        if (StrUtil.isBlank(result)) {
+    public void saveToDatabase(WebSiteContent webSiteContent,String id,String savePath,MarkDown markdown) throws IOException {
+        if (StrUtil.isBlank(webSiteContent.getContent())) {
             return;
         }
         MD md = new MD();
         md.setCreateTime(new Date());
-        md.setCONTEXT(result);
+        md.setCONTEXT(webSiteContent.getContent());
         md.setPNAME(id);
-        md.setTITLE(getTitle(result));
+        md.setTITLE(StringUtils.isBlank(webSiteContent.getTitle())?getTitle(webSiteContent.getContent()) : webSiteContent.getTitle());
         md.setSavePath(savePath);
         md.setBlogUrl(markdown.getBlogUrl());
         mdMapper.insert(md);

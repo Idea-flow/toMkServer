@@ -3,6 +3,7 @@ package com.wpl.tomarkdownserver.service.daoimpl;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wpl.tomarkdownserver.entity.MD;
 import com.wpl.tomarkdownserver.entity.PIC;
 import com.wpl.tomarkdownserver.mapper.MdMapper;
@@ -37,19 +38,18 @@ public class FilelistServiceImpl implements FilelistService {
 
     @Override
     public JSONObject getFileList(Integer id) {
-//        List<Sort.Order> orders = new ArrayList<>();
-//        orders.add(new Sort.Order(Sort.Direction.DESC, "createTime"));//设置时间倒序
-//        Sort sort = Sort.by(orders);
-//        mdMapper.
-        List<MD> findbyid = mdMapper.selectList(null);
+        QueryWrapper<MD> mdQueryWrapper = new QueryWrapper<>();
+        mdQueryWrapper.orderByDesc("create_time");
+        List<MD> findbyid = mdMapper.selectList(mdQueryWrapper);
         JSONObject re = new JSONObject();
         JSONArray jsonArray = new JSONArray();
-//
-//
+
+//        findbyid.stream().map
+
         for (MD md : findbyid) {
             JSONObject one_md = new JSONObject();
             one_md.put("title", md.getTITLE());
-            one_md.put("pname", md.getPNAME());
+            one_md.put("pname", md.getPNAME()); // a10acabb708d4e23b47e1a524159119b
             one_md.put("id", md.getId());
             List<String> piclists = picMapper.findbyPname(md.getPNAME());
             one_md.put("pics", piclists);

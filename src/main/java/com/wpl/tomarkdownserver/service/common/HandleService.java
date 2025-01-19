@@ -2,6 +2,7 @@ package com.wpl.tomarkdownserver.service.common;
 
 
 import com.wpl.tomarkdownserver.entity.MarkDown;
+import com.wpl.tomarkdownserver.model.WebSiteContent;
 
 /**
  * @Author wangpenglong
@@ -16,7 +17,7 @@ public interface HandleService {
      * @param markDown
      * @return
      */
-    String getBlogContent(MarkDown markDown);
+    WebSiteContent getBlogContent(MarkDown markDown);
 
 
 

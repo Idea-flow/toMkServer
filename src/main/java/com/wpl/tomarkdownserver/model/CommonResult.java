@@ -1,4 +1,4 @@
-package com.wpl.tomarkdownserver.pojo;
+package com.wpl.tomarkdownserver.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wpl.tomarkdownserver.common.exception.ErrorCode;

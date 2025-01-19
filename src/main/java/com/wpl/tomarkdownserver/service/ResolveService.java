@@ -1,6 +1,7 @@
 package com.wpl.tomarkdownserver.service;
 
 import com.wpl.tomarkdownserver.entity.MarkDown;
+import com.wpl.tomarkdownserver.model.WebSiteContent;
 import com.wpl.tomarkdownserver.service.resolve.*;
 import com.wpl.tomarkdownserver.utils.MarkDownUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +24,17 @@ public class ResolveService {
     private static final String JUEJIN = "juejin";
     private static final String SEGMENTFAULT = "segmentfault";
     private static final String JIANSHU = "jianshu";
-    private static final String V_2_EX = "v2ex";
+    private static final String V_2_EX = "v2ex";   // 待测试
     private static final String YU_QUE = "yuque";
 
+    private static final String LINUX_DO = "linux";   // 待测试
 
 
-    public static String get (MarkDown markDown){
+
+    public static WebSiteContent get (MarkDown markDown){
         String website = MarkDownUtil.getUrlOrigin(markDown);
         initMap(website);
-        return serviceMap.get(website)
+        return  serviceMap.get(website)
                 .getBlogContent(markDown);
 
     }
@@ -57,6 +60,10 @@ public class ResolveService {
             }else if (YU_QUE.equals(website)) {
                 serviceMap.put(website,new YuqueHandleServiceImpl());
 
+            }else if (LINUX_DO.equals(website)) {
+                serviceMap.put(website,new LinuxDoHandleServiceImpl());
+            }else if (V_2_EX.equals(website)) {
+                serviceMap.put(website,new V2exHandleServiceImpl());
             }
             else {
                 log.info("暂时还没有解决方案.");

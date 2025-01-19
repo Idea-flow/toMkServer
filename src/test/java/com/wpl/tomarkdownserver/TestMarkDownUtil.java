@@ -17,4 +17,11 @@ public class TestMarkDownUtil {
 //        请求链接>>> https://blog.csdn.net/qw8431/article/details/141401975 来源解析为:csdn
         System.out.println(urlOrigin);
     }
+
+    @Test
+    public void test32() {
+        String urlOrigin = MarkDownUtil.getUrlOrigin("https://linux.do/t/topic/376081");
+//        请求链接>>> https://blog.csdn.net/qw8431/article/details/141401975 来源解析为:csdn
+        System.out.println(urlOrigin);
+    }
 }

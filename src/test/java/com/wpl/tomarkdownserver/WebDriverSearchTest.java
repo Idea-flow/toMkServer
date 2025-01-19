@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class BaiduSearchTest {
+public class WebDriverSearchTest {
 
     public static void main(String[] args) {
         // 使用 WebDriverManager 自动管理 ChromeDriver

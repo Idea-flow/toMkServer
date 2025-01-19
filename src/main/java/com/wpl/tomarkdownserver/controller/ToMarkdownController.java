@@ -2,7 +2,8 @@ package com.wpl.tomarkdownserver.controller;
 
 import cn.hutool.core.util.IdUtil;
 import com.wpl.tomarkdownserver.entity.MarkDown;
-import com.wpl.tomarkdownserver.pojo.CommonResult;
+import com.wpl.tomarkdownserver.model.CommonResult;
+import com.wpl.tomarkdownserver.model.WebSiteContent;
 import com.wpl.tomarkdownserver.service.ResolveService;
 import com.wpl.tomarkdownserver.service.SaveFileService;
 import com.wpl.tomarkdownserver.service.SettingService;
@@ -52,13 +53,13 @@ public class ToMarkdownController {
         String id = IdUtil.simpleUUID();
         fillUp(markDown,id);
         Map<String,String> resultMap = new HashMap<>();
-        String result = null;
+        WebSiteContent webSiteContent = null;
         try {
             log.info("开始解析 请求地址为: "+markDown.getBlogUrl()+" 请求ID: "+ id);
-            result = ResolveService.get(markDown);
+            webSiteContent = ResolveService.get(markDown);
             resultMap.put("code","0");
-            resultMap.put("markdown",result);
-            log.info(saveFileService.saveToFile(result,id,markDown));
+            resultMap.put("markdown",webSiteContent.getContent());
+            log.info(saveFileService.saveToFile(webSiteContent,id,markDown));
             log.info("解析完成 返回markdown结果 "+ id);
             log.info("-------------------------------------------------------------");
         } catch (Exception e) {

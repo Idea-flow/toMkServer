@@ -3,7 +3,7 @@ package com.wpl.tomarkdownserver.controller;
 
 import cn.hutool.json.JSONObject;
 import com.wpl.tomarkdownserver.entity.MD;
-import com.wpl.tomarkdownserver.pojo.CommonResult;
+import com.wpl.tomarkdownserver.model.CommonResult;
 import com.wpl.tomarkdownserver.service.FilelistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
