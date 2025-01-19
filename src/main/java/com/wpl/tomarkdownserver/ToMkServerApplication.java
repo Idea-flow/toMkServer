@@ -24,7 +24,7 @@ public class ToMkServerApplication {
         String path = env.getProperty("server.servlet.context-path");
         path = StringUtils.hasText(path) ? path : "";
 
-        if ("h2".equals(active)) {
+        if ("h2".equals(active) || "h2-local".equals(active)) {
             System.out.println("\n----------------------------------------------------------\n\t" +
                     "application is running! Access URLs:\n\t" +
                     "Local: \t\thttp://localhost:" + port + path + "/\n\t" +
