@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:17-jdk-slim
 
 ADD ./target/article_to_markdown.jar /article_to_markdown.jar
 
@@ -6,4 +6,4 @@ ADD ./target/article_to_markdown.jar /article_to_markdown.jar
 EXPOSE 9998
 
 
-ENTRYPOINT ["java", "-jar", "/article_to_markdown.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=h2","-jar", "/article_to_markdown.jar"]

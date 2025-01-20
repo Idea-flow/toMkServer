@@ -45,7 +45,7 @@ public class SaveFileServiceImpl implements SaveFileService {
         if (!f.exists()) {
             f.mkdirs();
         }
-        String filename = MarkDownUtil.generatorFileName();
+        String filename = MarkDownUtil.generatorFileName(webSiteContent.getTitle());
         File mdFile = new File(f, filename);
         if (!mdFile.exists()) {
             mdFile.createNewFile();
