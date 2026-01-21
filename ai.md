@@ -1,0 +1,1 @@
+写一个github action 部署本项目的流程,打包镜像并上传到ghcr.io 的工作流
