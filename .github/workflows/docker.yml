@@ -33,9 +33,6 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Build jar
-        run: mvn -B clean package -DskipTests
-
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
